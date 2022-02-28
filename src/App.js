@@ -1,23 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import "./App.css";
+import Web3 from "web3";
+import localhost from "./localhost";
+import Header from "./components/Header/Header";
+import Profile from "./components/Profile/Profile";
+import Transfer from "./components/Transfer/Transfer";
 
 function App() {
+  const web3 = new Web3(Web3.givenProvider || `http://${localhost}:7545`);
+  const [account, setAccount] = useState(null);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Header
+        web3={web3}
+        setAccount={(account) => setAccount(account)}
+        account={account}
+      />
+      <Profile />
+      <Transfer />
     </div>
   );
 }

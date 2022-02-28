@@ -1,0 +1,14 @@
+.container {
+  display: flex;
+  flex-direction: row;
+}
+
+.balance {
+  align-self: flex-end;
+}
+
+.ETH {
+  align-self: flex-end;
+  margin-left: 10px;
+  padding-bottom: 5px;
+}
