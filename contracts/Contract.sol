@@ -2,10 +2,10 @@
 pragma solidity ^0.8.11;
 
 contract Contract {
-    mapping (address => uint256) balances;
+    mapping(address => uint256) balances;
 
-    // Get Users Balance
-    function GetBalance(address user) public view returns(uint256) {
+    // Get User Balance
+    function GetBalance(address user) public view returns (uint256) {
         return balances[user];
     }
 
@@ -15,8 +15,9 @@ contract Contract {
     }
 
     // Withdraw
-    function Withdraw() public {
-
+    function Withdraw(uint256 amount) public {
+        payable(msg.sender).transfer(amount);
+        balances[msg.sender] -= amount;
     }
 
     // Withdraw All
@@ -24,4 +25,7 @@ contract Contract {
         payable(msg.sender).transfer(balances[msg.sender]);
         balances[msg.sender] = 0;
     }
+
+    // Transfer
+    function Transfer() public {}
 }

@@ -14,29 +14,29 @@ function Header(props) {
     getAccount();
   });
 
+  const handleConnect = async () => {
+    await web3.eth.requestAccounts().then((accounts) => {
+      setAccount(accounts[0]);
+    });
+  };
+
+  const printAccount = () => {
+    const accountPrint = account
+      .slice(0, 5)
+      .concat("...")
+      .concat(account.slice(-6, -1));
+
+    return <div>{accountPrint}</div>;
+  };
+
   return (
     <div className="container">
-      {/* Logo */}
       <div className="logo">PROJE</div>
       <div>
         {account ? (
-          // Address
-          <div
-            className="address no-btn"
-          >
-            {account}
-          </div>
+          printAccount()
         ) : (
-          // Connect Metamask Button
-          <button
-            onClick={async () =>
-              await web3.eth.requestAccounts().then((accounts) => {
-                setAccount(accounts[0]);
-              })
-            }
-          >
-            Connect Metamask
-          </button>
+          <button onClick={() => handleConnect()}>Connect Metamask</button>
         )}
       </div>
     </div>
