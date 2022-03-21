@@ -27,5 +27,9 @@ contract Contract {
     }
 
     // Transfer
-    function Transfer() public {}
+    function Transfer(uint256 amount, address to) public {
+        require(balances[msg.sender] >= amount, "Not enough ETH.");
+        balances[msg.sender] -= amount;
+        balances[to] += amount;
+    }
 }

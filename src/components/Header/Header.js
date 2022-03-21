@@ -22,9 +22,9 @@ function Header(props) {
 
   const printAccount = () => {
     const accountPrint = account
-      .slice(0, 5)
+      .slice(0, 6)
       .concat("...")
-      .concat(account.slice(-6, -1));
+      .concat(account.slice(-5, -1));
 
     return <div>{accountPrint}</div>;
   };

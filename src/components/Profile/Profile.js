@@ -36,12 +36,12 @@ function Profile(props) {
       });
   };
 
-  const handleDepositInput = (event) => {
-    setDeposit(event.target.value);
+  const handleDepositInput = (text) => {
+    setDeposit(text.target.value);
   };
 
-  const handleWithdrawInput = (event) => {
-    setWithdraw(event.target.value);
+  const handleWithdrawInput = (text) => {
+    setWithdraw(text.target.value);
   };
 
   return (
@@ -59,8 +59,8 @@ function Profile(props) {
         {/* Deposit */}
         <div>
           <input
-            onChange={(event) => {
-              handleDepositInput(event);
+            onChange={(text) => {
+              handleDepositInput(text);
             }}
             placeholder="amount"
           ></input>
@@ -69,8 +69,8 @@ function Profile(props) {
         {/* Withdraw */}
         <div>
           <input
-            onChange={(event) => {
-              handleWithdrawInput(event);
+            onChange={(text) => {
+              handleWithdrawInput(text);
             }}
             placeholder="amount"
           ></input>

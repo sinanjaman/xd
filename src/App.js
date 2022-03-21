@@ -12,7 +12,7 @@ function App() {
   const [account, setAccount] = useState(null);
   const Contract = new web3.eth.Contract(
     ContractABI,
-    "0x34117ABFFd5D03a8aaB18ECAae48Baaa3fD41fb0"
+    "0xec3fb848653f19bF89A099C3CeE3Ce93041B4Dd5"
   );
 
   return (
@@ -23,7 +23,7 @@ function App() {
         account={account}
       />
       <Profile web3={web3} Contract={Contract} account={account} />
-      <Transfer />
+      <Transfer web3={web3} Contract={Contract} from={account} />
     </div>
   );
 }

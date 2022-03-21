@@ -28,7 +28,13 @@ export const ContractABI = [
     payable: true,
   },
   {
-    inputs: [],
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "amount",
+        type: "uint256",
+      },
+    ],
     name: "Withdraw",
     outputs: [],
     stateMutability: "nonpayable",
@@ -42,7 +48,18 @@ export const ContractABI = [
     type: "function",
   },
   {
-    inputs: [],
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "amount",
+        type: "uint256",
+      },
+      {
+        internalType: "address",
+        name: "to",
+        type: "address",
+      },
+    ],
     name: "Transfer",
     outputs: [],
     stateMutability: "nonpayable",
