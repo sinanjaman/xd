@@ -8,7 +8,7 @@ function Transfer(props) {
 
   const handleTransfer = () => {
     Contract.methods
-      .Transfer(web3.utils.toWei(amount, "ether"), to)
+      .transfer(web3.utils.toWei(amount, "ether"), to)
       .send({ from: from /*, gas: 3000000*/ });
   };
 
@@ -26,6 +26,7 @@ function Transfer(props) {
       <div className="container">
         <div>Send</div>
         <input
+          type="number"
           placeholder="eth"
           onChange={(text) => handleTransferInput(text)}
         ></input>

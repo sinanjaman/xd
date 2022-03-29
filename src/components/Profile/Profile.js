@@ -8,7 +8,7 @@ function Profile(props) {
   const [withdraw, setWithdraw] = useState("");
 
   const handleDeposit = () => {
-    Contract.methods.Deposit().send({
+    Contract.methods.deposit().send({
       from: props.account,
       value: web3.utils.toWei(deposit, "ether"),
     });
@@ -16,19 +16,17 @@ function Profile(props) {
 
   const handleWithdraw = () => {
     Contract.methods
-      .Withdraw(props.web3.utils.toWei(withdraw, "ether"))
+      .withdraw(props.web3.utils.toWei(withdraw, "ether"))
       .send({ from: account });
   };
 
   const handleWithdrawAll = () => {
-    Contract.methods
-      .WithdrawAll()
-      .send({ from: account /* gas: 3000000 */ });
+    Contract.methods.withdrawAll().send({ from: account /* gas: 3000000 */ });
   };
 
   const handleBalance = () => {
     Contract.methods
-      .GetBalance(account)
+      .getBalance(account)
       .call()
       .then((balance) => {
         const balanceEth = web3.utils.fromWei(balance, "ether");
@@ -59,6 +57,7 @@ function Profile(props) {
         {/* Deposit */}
         <div>
           <input
+            type="number"
             onChange={(text) => {
               handleDepositInput(text);
             }}
@@ -69,6 +68,7 @@ function Profile(props) {
         {/* Withdraw */}
         <div>
           <input
+            type="number"
             onChange={(text) => {
               handleWithdrawInput(text);
             }}

@@ -3,11 +3,37 @@ export const ContractABI = [
     inputs: [
       {
         internalType: "address",
-        name: "user",
+        name: "_user",
         type: "address",
       },
     ],
-    name: "GetBalance",
+    name: "makeAdmin",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "_user",
+        type: "address",
+      },
+    ],
+    name: "deleteUser",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "_user",
+        type: "address",
+      },
+    ],
+    name: "getBalance",
     outputs: [
       {
         internalType: "uint256",
@@ -21,7 +47,7 @@ export const ContractABI = [
   },
   {
     inputs: [],
-    name: "Deposit",
+    name: "deposit",
     outputs: [],
     stateMutability: "payable",
     type: "function",
@@ -31,18 +57,18 @@ export const ContractABI = [
     inputs: [
       {
         internalType: "uint256",
-        name: "amount",
+        name: "_amount",
         type: "uint256",
       },
     ],
-    name: "Withdraw",
+    name: "withdraw",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
   },
   {
     inputs: [],
-    name: "WithdrawAll",
+    name: "withdrawAll",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
@@ -51,16 +77,16 @@ export const ContractABI = [
     inputs: [
       {
         internalType: "uint256",
-        name: "amount",
+        name: "_amount",
         type: "uint256",
       },
       {
         internalType: "address",
-        name: "to",
+        name: "_to",
         type: "address",
       },
     ],
-    name: "Transfer",
+    name: "transfer",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
