@@ -2,30 +2,66 @@ import React, { useState } from "react";
 import "./Profile.css";
 
 function Profile(props) {
-  const { web3, Contract, account } = props;
-  const [balance, setBalance] = useState("...");
+  const { web3, Bitirium, account, balance, setBalance } = props;
   const [deposit, setDeposit] = useState("");
   const [withdraw, setWithdraw] = useState("");
 
-  const handleDeposit = () => {
-    Contract.methods.deposit().send({
+  Bitirium.events.Transfer(
+    { filter: account, fromBlock: "latest" },
+    (error, result) => {
+      if (!error) {
+        if (
+          result.returnValues[0] === account ||
+          result.returnValues[1] === account
+        ) {
+          console.log("Transfer: ", result);
+          handleBalance();
+          return;
+        }
+      }
+    }
+  );
+
+  const handleDeposit = async () => {
+    Bitirium.methods.deposit().send({
       from: props.account,
       value: web3.utils.toWei(deposit, "ether"),
     });
+
+    await Bitirium.once("Deposit", (error, result) => {
+      if (!error) {
+        console.log("Deposit: ", result);
+        handleBalance();
+      }
+    });
   };
 
-  const handleWithdraw = () => {
-    Contract.methods
+  const handleWithdraw = async () => {
+    Bitirium.methods
       .withdraw(props.web3.utils.toWei(withdraw, "ether"))
       .send({ from: account });
+
+    await Bitirium.once("Withdraw", (error, result) => {
+      if (!error) {
+        console.log("Withdraw: ", result);
+        handleBalance();
+      }
+    });
   };
 
-  const handleWithdrawAll = () => {
-    Contract.methods.withdrawAll().send({ from: account /* gas: 3000000 */ });
+  const handleWithdrawAll = async () => {
+    Bitirium.methods.withdrawAll().send({ from: account /* gas: 3000000 */ });
+
+    await Bitirium.once("Withdraw", (error, result) => {
+      if (!error) {
+        console.log("Withdraw: ", result);
+        handleBalance();
+      }
+    });
   };
 
   const handleBalance = () => {
-    Contract.methods
+    Bitirium.methods
       .getBalance(account)
       .call()
       .then((balance) => {
@@ -61,7 +97,7 @@ function Profile(props) {
             onChange={(text) => {
               handleDepositInput(text);
             }}
-            placeholder="amount"
+            placeholder="ETH"
           ></input>
           <button onClick={() => handleDeposit()}>Deposit</button>
         </div>
@@ -72,7 +108,7 @@ function Profile(props) {
             onChange={(text) => {
               handleWithdrawInput(text);
             }}
-            placeholder="amount"
+            placeholder="ETH"
           ></input>
           <button onClick={() => handleWithdraw()}>Withdraw</button>
         </div>

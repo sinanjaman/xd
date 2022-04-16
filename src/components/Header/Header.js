@@ -24,14 +24,14 @@ function Header(props) {
     const accountPrint = account
       .slice(0, 6)
       .concat("...")
-      .concat(account.slice(-5, -1));
+      .concat(account.slice(-4, 42));
 
     return <div>{accountPrint}</div>;
   };
 
   return (
     <div className="container">
-      <div className="logo">PROJE</div>
+      <div className="logo">BITIRIUM</div>
       <div>
         {account ? (
           printAccount()
