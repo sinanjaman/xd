@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import "./Profile.css";
+import { useState, useEffect } from "react";
 
 function Profile(props) {
   const { web3, Bitirium, account, balance, setBalance } = props;
@@ -78,44 +77,62 @@ function Profile(props) {
     setWithdraw(text.target.value);
   };
 
+  useEffect(() => {
+    account && handleBalance();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [account]);
+
   return (
-    <div>
-      <div className="container" style={{ justifyContent: "center" }}>
-        <h1>Profile</h1>
-        <button onClick={() => handleBalance()}>refresh</button>
-      </div>
-      <div className="container" style={{ justifyContent: "center" }}>
-        <h1 className="balance">{balance}</h1>
-        {balance !== "..." && <h3 className="ETH">ETH</h3>}
-      </div>
-      {/* Balance */}
-      <div className="container">
-        {/* Deposit */}
-        <div>
+    <div className="p-4 m-4 bg-gray-100 rounded-2xl shadow-md">
+      <div className="grid grid-rows-4 gap-2">
+        <div className="flex flex-row items-center gap-2">
+          <h1 className="text-3xl font-bold text-main">Profile</h1>
+          <div className="flex items-center mx-2 gap-1">
+            <h1 className="text-3xl font-bold text-secondary">{balance}</h1>
+            {balance !== "..." && (
+              <h3 className="text-xl font-bold text-secondary self-end">ETH</h3>
+            )}
+          </div>
+        </div>
+        <div className="grid grid-cols-2 gap-4">
           <input
+            className="shadow-md"
+            min={0}
             type="number"
             onChange={(text) => {
               handleDepositInput(text);
             }}
             placeholder="ETH"
-          ></input>
-          <button onClick={() => handleDeposit()}>Deposit</button>
+          />
+          <button
+            className="shadow-md"
+            onClick={() => deposit !== "" && deposit !== "0" && handleDeposit()}
+          >
+            Deposit
+          </button>
         </div>
-        {/* Withdraw */}
-        <div>
+        <div className="grid grid-cols-2 gap-4">
           <input
+            className="shadow-md"
+            min={0}
             type="number"
             onChange={(text) => {
               handleWithdrawInput(text);
             }}
             placeholder="ETH"
-          ></input>
-          <button onClick={() => handleWithdraw()}>Withdraw</button>
+          />
+          <button
+            className="shadow-md"
+            onClick={() =>
+              withdraw !== "" && withdraw !== "0" && handleWithdraw()
+            }
+          >
+            Withdraw
+          </button>
         </div>
-        {/* Withdraw All */}
-        <div>
-          <button onClick={() => handleWithdrawAll()}>Withdraw All</button>
-        </div>
+        <button className="shadow-md" onClick={() => handleWithdrawAll()}>
+          Withdraw All
+        </button>
       </div>
     </div>
   );

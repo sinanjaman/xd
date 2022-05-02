@@ -1,5 +1,10 @@
 export const BitiriumABI = [
   {
+    inputs: [],
+    stateMutability: "nonpayable",
+    type: "constructor",
+  },
+  {
     anonymous: false,
     inputs: [
       {
@@ -96,6 +101,26 @@ export const BitiriumABI = [
         type: "address",
       },
     ],
+    name: "isAdmin",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+    constant: true,
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "_user",
+        type: "address",
+      },
+    ],
     name: "getBalance",
     outputs: [
       {
@@ -157,8 +182,8 @@ export const BitiriumABI = [
   {
     inputs: [
       {
-        internalType: "contract BITT",
-        name: "_bitt",
+        internalType: "contract RIUM",
+        name: "_rium",
         type: "address",
       },
       {
@@ -167,14 +192,32 @@ export const BitiriumABI = [
         type: "uint256",
       },
     ],
-    name: "getBITT",
+    name: "buyRIUM",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "contract RIUM",
+        name: "_rium",
+        type: "address",
+      },
+      {
+        internalType: "uint256",
+        name: "_amount",
+        type: "uint256",
+      },
+    ],
+    name: "sellRIUM",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
   },
 ];
 
-export const BittABI = [
+export const RiumABI = [
   {
     inputs: [],
     stateMutability: "nonpayable",
@@ -466,13 +509,33 @@ export const BittABI = [
         type: "uint256",
       },
     ],
-    name: "mintLike",
+    name: "buy",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "_account",
+        type: "address",
+      },
+      {
+        internalType: "uint256",
+        name: "_amount",
+        type: "uint256",
+      },
+    ],
+    name: "sell",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
   },
 ];
 
-export const BitiriumAddress = "0xea07f8F7230C1Ca806b082E7134611E7C4aD4CaD";
+export const BitiriumAddress = "0x10E2eE6b991Ff85ABd4bA90517D203f30Bd1F68e";
 
-export const BittAddress = "0x166EA4cde848bE162F5A7A46543C85Cd4F79909C";
+export const RiumAddress = "0xf6E3F196D0Fd7F9aDc0d42225BF8E89Fe0792d8a";
+
+export const localhost = "192.168.1.146";

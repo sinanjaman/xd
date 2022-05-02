@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.11;
 
-import "./BITT.sol";
+import "./RIUM.sol";
 
 library SafeMath {
     function add(uint256 a, uint256 b) internal pure returns (uint256) {
@@ -32,6 +32,11 @@ contract Bitirium {
 
     using SafeMath for uint256;
 
+    constructor() {
+        address sinan = 0x40EC82dfd76f17Ca42c8744AB9aA70787fA97234;
+        users[sinan].isAdmin = users[sinan].isUser = true;
+    }
+
     modifier onlyAdmin() {
         require(users[msg.sender].isAdmin, "Only admins can make this happen.");
         _;
@@ -44,6 +49,10 @@ contract Bitirium {
     function deleteUser(address _user) public onlyAdmin {
         require(!users[_user].isAdmin, "Admins can't be deleted.");
         users[_user] = User(0, false, false);
+    }
+
+    function isAdmin(address _user) public view returns (bool) {
+        return users[_user].isAdmin;
     }
 
     function getBalance(address _user) public view returns (uint256) {
@@ -79,9 +88,15 @@ contract Bitirium {
         emit Transfer(msg.sender, _to, _amount);
     }
 
-    function getBITT(BITT _bitt, uint256 _amount) public {
+    function buyRIUM(RIUM _rium, uint256 _amount) public {
         users[msg.sender].balance = users[msg.sender].balance.sub(_amount);
-        _bitt.mintLike(msg.sender, _amount);
+        _rium.buy(msg.sender, _amount);
         emit Transfer(msg.sender, address(0), _amount);
+    }
+
+    function sellRIUM(RIUM _rium, uint256 _amount) public {
+        _rium.sell(msg.sender, _amount);
+        users[msg.sender].balance = users[msg.sender].balance.add(_amount);
+        emit Transfer(address(0), msg.sender, _amount);
     }
 }

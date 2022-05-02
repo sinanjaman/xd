@@ -1,24 +1,29 @@
-import React, { useState } from "react";
-import "./App.css";
+import { useState } from "react";
 import Web3 from "web3";
-import localhost from "./localhost";
-import { BitiriumABI, BittABI, BitiriumAddress, BittAddress } from "./Credentials";
-import Header from "./components/Header/Header";
-import Profile from "./components/Profile/Profile";
-import Transfer from "./components/Transfer/Transfer";
-import Swap from "./components/Swap/Swap";
+import {
+  BitiriumABI,
+  RiumABI,
+  BitiriumAddress,
+  RiumAddress,
+  localhost,
+} from "./Credentials";
+import Header from "./components/Header";
+import Profile from "./components/Profile";
+import Transfer from "./components/Transfer";
+import Swap from "./components/Swap";
 
 function App() {
   const web3 = new Web3(Web3.givenProvider || `http://${localhost}:7545`);
   const [account, setAccount] = useState(null);
   const [balance, setBalance] = useState("...");
   const Bitirium = new web3.eth.Contract(BitiriumABI, BitiriumAddress);
-  const Bitt = new web3.eth.Contract(BittABI, BittAddress);
+  const Rium = new web3.eth.Contract(RiumABI, RiumAddress);
 
   return (
-    <div className="App">
+    <div className="h-screen bg-secondary">
       <Header
         web3={web3}
+        Bitirium={Bitirium}
         setAccount={(account) => setAccount(account)}
         account={account}
       />
@@ -28,7 +33,7 @@ function App() {
         account={account}
         setBalance={(balance) => setBalance(balance)}
         balance={balance}
-        Bitt={Bitt}
+        Rium={Rium}
       />
       <Transfer
         web3={web3}
@@ -41,7 +46,7 @@ function App() {
         Bitirium={Bitirium}
         account={account}
         setBalance={(balance) => setBalance(balance)}
-        Bitt={Bitt}
+        Rium={Rium}
       />
     </div>
   );
