@@ -49,8 +49,8 @@ function Header(props) {
           {account ? (
             <div className="flex flex-row items-center gap-2 sm:gap-4">
               {admin ? (
-                <button className="bg-secondary text-white font-light shadow-md border-none px-1 py-0 sm:px-4 sm:py-1">
-                  Admin Panel
+                <button className="bg-secondary text-white font-light border-none px-1 py-0 xs:px-4 xs:py-1">
+                  Admin
                 </button>
               ) : (
                 <></>
@@ -59,7 +59,7 @@ function Header(props) {
             </div>
           ) : (
             <button
-              className="bg-secondary text-white font-light shadow-md border-none"
+              className="bg-secondary text-white font-light border-none"
               onClick={() => handleConnect()}
             >
               Connect Metamask

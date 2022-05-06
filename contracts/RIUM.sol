@@ -53,7 +53,7 @@ contract RIUM is ERC20 {
         totalSupply = 1000000000000000000000000000;
         balances[owner] = totalSupply;
         emit Transfer(address(0), owner, totalSupply);
-        approve(0x10E2eE6b991Ff85ABd4bA90517D203f30Bd1F68e, totalSupply);
+        approve(0xA4c754D68af6E90140eB9881D1f8713f399861E1, totalSupply);
     }
 
     function balanceOf(address _user)
@@ -119,14 +119,14 @@ contract RIUM is ERC20 {
     }
 
     function buy(address _account, uint256 _amount) public {
-        uint256 _rium = _amount * 10;
+        uint256 _rium = _amount * 100;
         balances[owner] = balances[owner].sub(_rium);
         balances[_account] = balances[_account].add(_rium);
         emit Transfer(address(0), _account, _rium);
     }
 
     function sell(address _account, uint256 _amount) public {
-        uint256 _rium = _amount * 10;
+        uint256 _rium = _amount * 100;
         balances[_account] = balances[_account].sub(_rium);
         balances[owner] = balances[owner].add(_rium);
         emit Transfer(_account, address(0), _rium);

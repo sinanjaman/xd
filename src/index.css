@@ -4,14 +4,10 @@
 
 @layer base {
     button {
-        @apply border-2 border-main text-white bg-main px-4 py-1 rounded-md
+        @apply border-2 border-main text-white bg-main px-4 py-1 rounded-md shadow-md
     }
 
     input {
-        @apply border-2 border-main px-4 py-1 rounded-md hover:border-secondary
-    }
-
-    a {
-        @apply transition-colors duration-300 text-white hover:text-secondary
+        @apply border-2 border-main px-4 py-1 rounded-md hover:border-secondary focus:border-secondary shadow-md
     }
 }

@@ -83,8 +83,8 @@ function Profile(props) {
   }, [account]);
 
   return (
-    <div className="p-4 m-4 bg-gray-100 rounded-2xl shadow-md">
-      <div className="grid grid-rows-4 gap-2">
+    <div className="p-4 m-4 bg-gray-100 rounded-2xl">
+      <div className="grid grid-rows-4 gap-2 md:grid-rows-2">
         <div className="flex flex-row items-center gap-2">
           <h1 className="text-3xl font-bold text-main">Profile</h1>
           <div className="flex items-center mx-2 gap-1">
@@ -94,45 +94,49 @@ function Profile(props) {
             )}
           </div>
         </div>
-        <div className="grid grid-cols-2 gap-4">
-          <input
-            className="shadow-md"
-            min={0}
-            type="number"
-            onChange={(text) => {
-              handleDepositInput(text);
-            }}
-            placeholder="ETH"
-          />
+        <div className="row-span-3 grid grid-rows-3 md:grid-rows-1 md:row-span-1 gap-2 md:grid-cols-3 md:gap-8">
+          <div className="grid grid-cols-2 gap-4">
+            <input
+              min={0}
+              type="number"
+              onChange={(text) => {
+                handleDepositInput(text);
+              }}
+              placeholder="ETH"
+            />
+            <button
+            className=""
+              onClick={() =>
+                deposit !== "" && deposit !== "0" && handleDeposit()
+              }
+            >
+              Deposit
+            </button>
+          </div>
+          <div className="grid grid-cols-2 gap-4">
+            <input
+              min={0}
+              type="number"
+              onChange={(text) => {
+                handleWithdrawInput(text);
+              }}
+              placeholder="ETH"
+            />
+            <button
+              onClick={() =>
+                withdraw !== "" && withdraw !== "0" && handleWithdraw()
+              }
+            >
+              Withdraw
+            </button>
+          </div>
           <button
-            className="shadow-md"
-            onClick={() => deposit !== "" && deposit !== "0" && handleDeposit()}
+            className="md:w-3/4 md:mx-auto"
+            onClick={() => handleWithdrawAll()}
           >
-            Deposit
+            Withdraw All
           </button>
         </div>
-        <div className="grid grid-cols-2 gap-4">
-          <input
-            className="shadow-md"
-            min={0}
-            type="number"
-            onChange={(text) => {
-              handleWithdrawInput(text);
-            }}
-            placeholder="ETH"
-          />
-          <button
-            className="shadow-md"
-            onClick={() =>
-              withdraw !== "" && withdraw !== "0" && handleWithdraw()
-            }
-          >
-            Withdraw
-          </button>
-        </div>
-        <button className="shadow-md" onClick={() => handleWithdrawAll()}>
-          Withdraw All
-        </button>
       </div>
     </div>
   );
