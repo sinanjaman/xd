@@ -68,6 +68,29 @@ export const BitiriumABI = [
     type: "event",
   },
   {
+    inputs: [],
+    name: "_onlyAdmin",
+    outputs: [],
+    stateMutability: "view",
+    type: "function",
+    constant: true,
+  },
+  {
+    inputs: [],
+    name: "_onlyUser",
+    outputs: [],
+    stateMutability: "view",
+    type: "function",
+    constant: true,
+  },
+  {
+    inputs: [],
+    name: "createUser",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
     inputs: [
       {
         internalType: "address",
@@ -92,6 +115,26 @@ export const BitiriumABI = [
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "_user",
+        type: "address",
+      },
+    ],
+    name: "isUser",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+    constant: true,
   },
   {
     inputs: [
@@ -534,8 +577,8 @@ export const RiumABI = [
   },
 ];
 
-export const BitiriumAddress = "0x10E2eE6b991Ff85ABd4bA90517D203f30Bd1F68e";
+export const BitiriumAddress = "0x2045654D66198E35821Dd1ABAA598d1d9c4FFAB9";
 
-export const RiumAddress = "0xf6E3F196D0Fd7F9aDc0d42225BF8E89Fe0792d8a";
+export const RiumAddress = "0x3126E746c8ABF8Cad8E2296Aa28C86Cd2DE66Fbb";
 
 export const localhost = "192.168.1.146";

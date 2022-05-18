@@ -23,7 +23,7 @@ function Profile(props) {
 
   const handleDeposit = async () => {
     Bitirium.methods.deposit().send({
-      from: props.account,
+      from: account,
       value: web3.utils.toWei(deposit, "ether"),
     });
 
@@ -31,25 +31,27 @@ function Profile(props) {
       if (!error) {
         console.log("Deposit: ", result);
         handleBalance();
+        setDeposit("");
       }
     });
   };
 
   const handleWithdraw = async () => {
     Bitirium.methods
-      .withdraw(props.web3.utils.toWei(withdraw, "ether"))
+      .withdraw(web3.utils.toWei(withdraw, "ether"))
       .send({ from: account });
 
     await Bitirium.once("Withdraw", (error, result) => {
       if (!error) {
         console.log("Withdraw: ", result);
         handleBalance();
+        setWithdraw("");
       }
     });
   };
 
   const handleWithdrawAll = async () => {
-    Bitirium.methods.withdrawAll().send({ from: account /* gas: 3000000 */ });
+    Bitirium.methods.withdrawAll().send({ from: account });
 
     await Bitirium.once("Withdraw", (error, result) => {
       if (!error) {
@@ -89,7 +91,7 @@ function Profile(props) {
           <h1 className="text-3xl font-bold text-main">Profile</h1>
           <div className="flex items-center mx-2 gap-1">
             <h1 className="text-3xl font-bold text-secondary">{balance}</h1>
-            {balance !== "..." && (
+            {balance !== "" && (
               <h3 className="text-xl font-bold text-secondary self-end">ETH</h3>
             )}
           </div>
@@ -102,10 +104,11 @@ function Profile(props) {
               onChange={(text) => {
                 handleDepositInput(text);
               }}
+              value={deposit}
               placeholder="ETH"
             />
             <button
-            className=""
+              className=""
               onClick={() =>
                 deposit !== "" && deposit !== "0" && handleDeposit()
               }
@@ -120,6 +123,7 @@ function Profile(props) {
               onChange={(text) => {
                 handleWithdrawInput(text);
               }}
+              value={withdraw}
               placeholder="ETH"
             />
             <button
@@ -131,7 +135,7 @@ function Profile(props) {
             </button>
           </div>
           <button
-            className="md:w-3/4 md:mx-auto"
+            className="md:w-full md:mx-auto"
             onClick={() => handleWithdrawAll()}
           >
             Withdraw All

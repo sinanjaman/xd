@@ -14,6 +14,7 @@ function Swap(props) {
       if (!error) {
         console.log("RIUM_Buy: ", result);
       }
+      setRium("");
     });
   };
 
@@ -26,6 +27,7 @@ function Swap(props) {
       if (!error) {
         console.log("RIUM_Sell: ", result);
       }
+      setRium("");
     });
   };
 
@@ -61,7 +63,7 @@ function Swap(props) {
   };
 
   return (
-    <div className="p-4 m-4 bg-gray-100 rounded-2xl ">
+    <div className="p-4 m-4 bg-gray-100 rounded-2xl">
       <div className="grid grid-rows-3 gap-2">
         <h1 className="text-3xl font-bold text-main">Buy & Sell RIUM</h1>
         <div className="grid grid-cols-2 gap-4">
@@ -71,8 +73,11 @@ function Swap(props) {
             type="number"
             placeholder="RIUM"
             onChange={(text) => handleRIUMInput(text)}
+            value={rium}
           />
-          <div className="text-center self-center">{rium / 100} ETH</div>
+          <div className="text-center self-center text-secondary">
+            {rium / 100} ETH
+          </div>
         </div>
         <div className="grid grid-cols-2 gap-4">
           <button

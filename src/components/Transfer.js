@@ -6,9 +6,11 @@ function Transfer(props) {
   const [to, setTo] = useState("");
 
   const handleTransfer = async () => {
-    Bitirium.methods
+    await Bitirium.methods
       .transferETH(to, web3.utils.toWei(amount, "ether"))
-      .send({ from: from /*, gas: 3000000*/ });
+      .send({ from: from });
+    setAmount("");
+    setTo("");
   };
 
   const handleTransferInput = (event) => {
@@ -25,7 +27,9 @@ function Transfer(props) {
         <h1 className="text-3xl font-bold text-main">Transfer</h1>
         <div className="row-span-3 grid grid-rows-3 gap-2 md:grid-rows-1 md:row-span-1 md:grid-cols-9 md:gap-4">
           <div className="grid grid-cols-4 gap-4 md:col-span-4">
-            <div className="text-center self-center text-lg font-light">SEND</div>
+            <div className="text-center self-center text-lg text-secondary">
+              SEND
+            </div>
             <div className="col-span-3">
               <input
                 className="w-full"
@@ -33,16 +37,20 @@ function Transfer(props) {
                 type="number"
                 placeholder="ETH"
                 onChange={(text) => handleTransferInput(text)}
+                value={amount}
               />
             </div>
           </div>
           <div className="grid grid-cols-4 gap-4 md:col-span-4">
-            <div className="text-center self-center text-lg font-light">TO</div>
+            <div className="text-center self-center text-lg text-secondary">
+              TO
+            </div>
             <div className="col-span-3">
               <input
                 className="w-full"
                 placeholder="0x..."
                 onChange={(text) => handleAddressInput(text)}
+                value={to}
               />
             </div>
           </div>

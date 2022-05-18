@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: MIT
+// SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.11;
 
 import "./Bitirium.sol";
@@ -53,7 +53,7 @@ contract RIUM is ERC20 {
         totalSupply = 1000000000000000000000000000;
         balances[owner] = totalSupply;
         emit Transfer(address(0), owner, totalSupply);
-        approve(0xA4c754D68af6E90140eB9881D1f8713f399861E1, totalSupply);
+        approve(0x2045654D66198E35821Dd1ABAA598d1d9c4FFAB9, totalSupply);
     }
 
     function balanceOf(address _user)
