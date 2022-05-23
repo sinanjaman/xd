@@ -5,9 +5,14 @@ function Transfer(props) {
   const [amount, setAmount] = useState("");
   const [to, setTo] = useState("");
 
+  const emptyCheck = (input) => {
+    if (input === "" || input === "0") return false;
+    return true;
+  };
+
   const handleTransfer = async () => {
     await Bitirium.methods
-      .transferETH(to, web3.utils.toWei(amount, "ether"))
+      .transferEthereum(to, web3.utils.toWei(amount, "ether"))
       .send({ from: from });
     setAmount("");
     setTo("");
@@ -56,7 +61,7 @@ function Transfer(props) {
           </div>
           <button
             className=""
-            onClick={() => amount !== "" && amount !== "0" && handleTransfer()}
+            onClick={() => emptyCheck(amount) && handleTransfer()}
           >
             Send
           </button>

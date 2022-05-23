@@ -21,6 +21,11 @@ function Profile(props) {
     }
   );
 
+  const emptyCheck = (input) => {
+    if (input === "" || input === "0") return false;
+    return true;
+  };
+
   const handleDeposit = async () => {
     Bitirium.methods.deposit().send({
       from: account,
@@ -109,9 +114,7 @@ function Profile(props) {
             />
             <button
               className=""
-              onClick={() =>
-                deposit !== "" && deposit !== "0" && handleDeposit()
-              }
+              onClick={() => emptyCheck(deposit) && handleDeposit()}
             >
               Deposit
             </button>
@@ -126,17 +129,13 @@ function Profile(props) {
               value={withdraw}
               placeholder="ETH"
             />
-            <button
-              onClick={() =>
-                withdraw !== "" && withdraw !== "0" && handleWithdraw()
-              }
-            >
+            <button onClick={() => emptyCheck(withdraw) && handleWithdraw()}>
               Withdraw
             </button>
           </div>
           <button
             className="md:w-full md:mx-auto"
-            onClick={() => handleWithdrawAll()}
+            onClick={() => emptyCheck(balance) && handleWithdrawAll()}
           >
             Withdraw All
           </button>

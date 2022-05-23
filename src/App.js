@@ -22,7 +22,7 @@ function App() {
   const Rium = new web3.eth.Contract(RiumABI, RiumAddress);
 
   return (
-    <div className="h-screen bg-secondary">
+    <div className="min-h-screen h-full bg-secondary">
       <Header
         web3={web3}
         Bitirium={Bitirium}
@@ -54,7 +54,7 @@ function App() {
             setBalance={(balance) => setBalance(balance)}
             Rium={Rium}
           />
-          {admin && <Admin Bitirium={Bitirium} account={account} />}
+          {admin && <Admin Bitirium={Bitirium} account={account} web3={web3} />}
         </div>
       </div>
     </div>

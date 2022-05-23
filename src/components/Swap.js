@@ -5,9 +5,14 @@ function Swap(props) {
   const { web3, Bitirium, account, Rium } = props;
   const [rium, setRium] = useState("");
 
+  const emptyCheck = (input) => {
+    if (input === "" || input === "0") return false;
+    return true;
+  };
+
   const handleBuy = async () => {
     Bitirium.methods
-      .buyRIUM(RiumAddress, web3.utils.toWei((rium / 100).toString(), "ether"))
+      .buyRium(RiumAddress, web3.utils.toWei((rium / 100).toString(), "ether"))
       .send({ from: account });
 
     await Rium.once("Transfer", (error, result) => {
@@ -20,7 +25,7 @@ function Swap(props) {
 
   const handleSell = async () => {
     Bitirium.methods
-      .sellRIUM(RiumAddress, web3.utils.toWei((rium / 100).toString(), "ether"))
+      .sellRium(RiumAddress, web3.utils.toWei((rium / 100).toString(), "ether"))
       .send({ from: account });
 
     await Rium.once("Transfer", (error, result) => {
@@ -30,33 +35,6 @@ function Swap(props) {
       setRium("");
     });
   };
-
-  // ? See all transactions
-  // const getAllTransactions = async () => {
-  //   await Rium.getPastEvents(
-  //     "Transfer",
-  //     { fromBlock: "earliest", toBlock: "latest" },
-  //     (error, result) => {
-  //       if (!error) {
-  //         var i = 0;
-  //         result.forEach((element) => {
-  //           i++;
-  //           console.log(i, ": ", element);
-  //         });
-  //       }
-  //     }
-  //   );
-  // };
-
-  // ? Delete user
-  // const deleteUser = (address) => {
-  //   Bitirium.methods.deleteUser().call({ from: account });
-  // };
-
-  // ? Make admin
-  // const makeAdmin = (address) => {
-  //   Bitirium.methods.makeAdmin().call({ from: account });
-  // };
 
   const handleRIUMInput = (text) => {
     setRium(text.target.value);
@@ -80,15 +58,12 @@ function Swap(props) {
           </div>
         </div>
         <div className="grid grid-cols-2 gap-4">
-          <button
-            className=""
-            onClick={() => rium !== "" && rium !== "0" && handleBuy()}
-          >
+          <button className="" onClick={() => emptyCheck(rium) && handleBuy()}>
             Buy RIUM
           </button>
           <button
             className=" bg-secondary border-secondary"
-            onClick={() => rium !== "" && rium !== "0" && handleSell()}
+            onClick={() => emptyCheck(rium) && handleSell()}
           >
             Sell RIUM
           </button>

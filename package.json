@@ -40,6 +40,7 @@
   },
   "devDependencies": {
     "autoprefixer": "^9",
+    "hardhat": "^2.9.6",
     "postcss": "^7",
     "react-error-overlay": "^6.0.9",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat"

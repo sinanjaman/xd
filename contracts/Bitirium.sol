@@ -55,17 +55,17 @@ contract Bitirium {
         require(users[msg.sender].isUser, "Only users can make this happen.");
     }
 
-    function createUser() public {
+    function createUser() public payable {
         users[msg.sender].isUser = true;
     }
 
-    function makeAdmin(address _user) public onlyAdmin {
+    function administrateUser(address _user) public onlyAdmin {
         users[_user].isAdmin = true;
     }
 
     function deleteUser(address _user) public onlyAdmin {
         require(!users[_user].isAdmin, "Admins can't be deleted.");
-        users[_user] = User(0, false, false);
+        users[_user] = User(users[_user].balance, false, false);
     }
 
     function isUser(address _user) public view returns (bool) {
@@ -102,20 +102,20 @@ contract Bitirium {
         emit Withdraw(msg.sender, _balance);
     }
 
-    function transferETH(address _to, uint256 _amount) public onlyUser {
+    function transferEthereum(address _to, uint256 _amount) public onlyUser {
         require(users[msg.sender].balance >= _amount, "Not enough ETH.");
         users[msg.sender].balance = users[msg.sender].balance.sub(_amount);
         users[_to].balance = users[_to].balance.add(_amount);
         emit Transfer(msg.sender, _to, _amount);
     }
 
-    function buyRIUM(RIUM _rium, uint256 _amount) public onlyUser {
+    function buyRium(RIUM _rium, uint256 _amount) public onlyUser {
         users[msg.sender].balance = users[msg.sender].balance.sub(_amount);
         _rium.buy(msg.sender, _amount);
         emit Transfer(msg.sender, address(0), _amount);
     }
 
-    function sellRIUM(RIUM _rium, uint256 _amount) public onlyUser {
+    function sellRium(RIUM _rium, uint256 _amount) public onlyUser {
         _rium.sell(msg.sender, _amount);
         users[msg.sender].balance = users[msg.sender].balance.add(_amount);
         emit Transfer(address(0), msg.sender, _amount);

@@ -5,6 +5,7 @@ function Header(props) {
 
   useEffect(() => {
     const { web3, setAccount } = props;
+
     const getAccount = async () =>
       await web3.eth.getAccounts((e, accounts) => {
         setAccount(accounts[0]);
@@ -14,7 +15,11 @@ function Header(props) {
 
     getAccount();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [account]);
+
+  window.ethereum.on("accountsChanged", function (accounts) {
+    setAccount(accounts[0]);
+  });
 
   const handleConnect = async () => {
     await web3.eth.requestAccounts().then((accounts) => {
@@ -29,7 +34,11 @@ function Header(props) {
       .isUser(account)
       .call()
       .then((user) => {
-        !user && Bitirium.methods.createUser().send({ from: account });
+        !user &&
+          Bitirium.methods.createUser().send({
+            from: account,
+            // value: web3.utils.toWei("2", "ether"),
+          });
       });
   };
 

@@ -1,19 +1,46 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import Table from "./Table";
 
 function Admin(props) {
   const { Bitirium, account } = props;
   const [address, setAddress] = useState("");
+  const [events, setEvents] = useState([]);
+
+  const emptyCheck = (input) => {
+    if (input === "" || input === "0") return false;
+    return true;
+  };
+
+  const getEvents = () => {
+    Bitirium.getPastEvents(
+      "allEvents",
+      { fromBlock: "earliest", toBlock: "latest" },
+      (error, result) => {
+        if (!error) {
+          let tempResults = result;
+          setEvents(tempResults.reverse());
+        }
+      }
+    );
+  };
+
+  useEffect(() => {
+    getEvents();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleAdministrate = async () => {
-    await Bitirium.methods.makeAdmin(address).send({ from: account });
+    await Bitirium.methods.administrateUser(address).send({ from: account });
+    setAddress("");
   };
 
   const handleDelete = async () => {
     await Bitirium.methods.deleteUser(address).send({ from: account });
+    setAddress("");
   };
 
-  const handleAddressInput = (event) => {
-    setAddress(event.target.value);
+  const handleAddressInput = (text) => {
+    setAddress(text.target.value);
   };
 
   return (
@@ -33,30 +60,20 @@ function Admin(props) {
             }}
           />
           <div className="grid grid-cols-2 gap-4">
-            <button onClick={() => handleAdministrate()}>
+            <button onClick={() => emptyCheck(address) && handleAdministrate()}>
               Administrate User
             </button>
             <button
               className="bg-secondary border-secondary"
-              onClick={() => handleDelete()}
+              onClick={() => emptyCheck(address) && handleDelete()}
             >
               Delete User
             </button>
           </div>
         </div>
+        <h1 className="text-3xl font-bold text-main mt-2">Transactions</h1>
         <div className="row-span-6 bg-white p-4 rounded-xl shadow-lg">
-          {/* <table className="w-full">
-            <th className="text-secondary text-2xl">Transactions</th>
-            <tr>Deposit</tr>
-            <tr>Transfer</tr>
-            <tr>Deposit</tr>
-            <tr>Withdraw</tr>
-            <tr>Transfer</tr>
-            <tr>Deposit</tr>
-            <tr>Withdraw</tr>
-            <tr>Transfer</tr>
-            <tr>Deposit</tr>
-          </table> */}
+          <Table events={events} />
         </div>
       </div>
     </div>

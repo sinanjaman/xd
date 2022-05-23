@@ -73,7 +73,6 @@ export const BitiriumABI = [
     outputs: [],
     stateMutability: "view",
     type: "function",
-    constant: true,
   },
   {
     inputs: [],
@@ -81,13 +80,12 @@ export const BitiriumABI = [
     outputs: [],
     stateMutability: "view",
     type: "function",
-    constant: true,
   },
   {
     inputs: [],
     name: "createUser",
     outputs: [],
-    stateMutability: "nonpayable",
+    stateMutability: "payable",
     type: "function",
   },
   {
@@ -98,7 +96,7 @@ export const BitiriumABI = [
         type: "address",
       },
     ],
-    name: "makeAdmin",
+    name: "administrateUser",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
@@ -134,7 +132,6 @@ export const BitiriumABI = [
     ],
     stateMutability: "view",
     type: "function",
-    constant: true,
   },
   {
     inputs: [
@@ -154,7 +151,6 @@ export const BitiriumABI = [
     ],
     stateMutability: "view",
     type: "function",
-    constant: true,
   },
   {
     inputs: [
@@ -174,7 +170,6 @@ export const BitiriumABI = [
     ],
     stateMutability: "view",
     type: "function",
-    constant: true,
   },
   {
     inputs: [],
@@ -182,7 +177,6 @@ export const BitiriumABI = [
     outputs: [],
     stateMutability: "payable",
     type: "function",
-    payable: true,
   },
   {
     inputs: [
@@ -217,7 +211,7 @@ export const BitiriumABI = [
         type: "uint256",
       },
     ],
-    name: "transferETH",
+    name: "transferEthereum",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
@@ -235,7 +229,7 @@ export const BitiriumABI = [
         type: "uint256",
       },
     ],
-    name: "buyRIUM",
+    name: "buyRium",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
@@ -253,7 +247,7 @@ export const BitiriumABI = [
         type: "uint256",
       },
     ],
-    name: "sellRIUM",
+    name: "sellRium",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
@@ -577,8 +571,8 @@ export const RiumABI = [
   },
 ];
 
-export const BitiriumAddress = "0x2045654D66198E35821Dd1ABAA598d1d9c4FFAB9";
+export const BitiriumAddress = "0x70a338Ef57B6f0dfb8165570b33ea34aEE30d4Fa";
 
-export const RiumAddress = "0x3126E746c8ABF8Cad8E2296Aa28C86Cd2DE66Fbb";
+export const RiumAddress = "0x1030FC26ddAa81C27522CE4B53Aa1924Db6C78e3";
 
-export const localhost = "192.168.1.146";
+export const localhost = "192.168.68.50";

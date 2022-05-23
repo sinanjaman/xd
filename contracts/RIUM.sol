@@ -53,7 +53,7 @@ contract RIUM is ERC20 {
         totalSupply = 1000000000000000000000000000;
         balances[owner] = totalSupply;
         emit Transfer(address(0), owner, totalSupply);
-        approve(0x2045654D66198E35821Dd1ABAA598d1d9c4FFAB9, totalSupply);
+        approve(0x70a338Ef57B6f0dfb8165570b33ea34aEE30d4Fa, totalSupply);
     }
 
     function balanceOf(address _user)
