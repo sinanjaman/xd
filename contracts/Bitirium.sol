@@ -33,8 +33,8 @@ contract Bitirium {
     using SafeMath for uint256;
 
     constructor() {
-        address sinan = 0x40EC82dfd76f17Ca42c8744AB9aA70787fA97234;
-        users[sinan].isAdmin = users[sinan].isUser = true;
+        address admin = 0x40EC82dfd76f17Ca42c8744AB9aA70787fA97234;
+        users[admin].isAdmin = users[admin].isUser = true;
     }
 
     modifier onlyAdmin() {

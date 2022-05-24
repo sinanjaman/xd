@@ -13,7 +13,6 @@ function Profile(props) {
           result.returnValues[0] === account ||
           result.returnValues[1] === account
         ) {
-          console.log("Transfer: ", result);
           handleBalance();
           return;
         }
@@ -34,7 +33,6 @@ function Profile(props) {
 
     await Bitirium.once("Deposit", (error, result) => {
       if (!error) {
-        console.log("Deposit: ", result);
         handleBalance();
         setDeposit("");
       }
@@ -48,7 +46,6 @@ function Profile(props) {
 
     await Bitirium.once("Withdraw", (error, result) => {
       if (!error) {
-        console.log("Withdraw: ", result);
         handleBalance();
         setWithdraw("");
       }
@@ -60,7 +57,6 @@ function Profile(props) {
 
     await Bitirium.once("Withdraw", (error, result) => {
       if (!error) {
-        console.log("Withdraw: ", result);
         handleBalance();
       }
     });

@@ -1,12 +1,8 @@
 import { useState } from "react";
 import Web3 from "web3";
-import {
-  BitiriumABI,
-  RiumABI,
-  BitiriumAddress,
-  RiumAddress,
-  localhost,
-} from "./Credentials";
+import { BitiriumAddress, RiumAddress, localhost } from "./Credentials";
+import BitiriumJSON from "../build/contracts/Bitirium.json";
+import RiumJSON from "../build/contracts/RIUM.json";
 import Header from "./components/Header";
 import Profile from "./components/Profile";
 import Transfer from "./components/Transfer";
@@ -18,8 +14,8 @@ function App() {
   const [account, setAccount] = useState(null);
   const [balance, setBalance] = useState("");
   const [admin, setAdmin] = useState(false);
-  const Bitirium = new web3.eth.Contract(BitiriumABI, BitiriumAddress);
-  const Rium = new web3.eth.Contract(RiumABI, RiumAddress);
+  const Bitirium = new web3.eth.Contract(BitiriumJSON.abi, BitiriumAddress);
+  const Rium = new web3.eth.Contract(RiumJSON.abi, RiumAddress);
 
   return (
     <div className="min-h-screen h-full bg-secondary">

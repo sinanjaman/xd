@@ -15,10 +15,10 @@ function Header(props) {
 
     getAccount();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [account]);
+  }, []);
 
   window.ethereum.on("accountsChanged", function (accounts) {
-    setAccount(accounts[0]);
+    window.location.reload();
   });
 
   const handleConnect = async () => {
@@ -33,12 +33,12 @@ function Header(props) {
     Bitirium.methods
       .isUser(account)
       .call()
-      .then((user) => {
+      .then(async (user) => {
         !user &&
-          Bitirium.methods.createUser().send({
+          (await Bitirium.methods.createUser().send({
             from: account,
             // value: web3.utils.toWei("2", "ether"),
-          });
+          }));
       });
   };
 

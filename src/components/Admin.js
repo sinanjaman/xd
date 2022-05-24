@@ -24,6 +24,10 @@ function Admin(props) {
     );
   };
 
+  Bitirium.events.allEvents({ fromBlock: "earliest" }, () => {
+    getEvents();
+  });
+
   useEffect(() => {
     getEvents();
     // eslint-disable-next-line react-hooks/exhaustive-deps

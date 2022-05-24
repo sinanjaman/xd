@@ -16,9 +16,6 @@ function Swap(props) {
       .send({ from: account });
 
     await Rium.once("Transfer", (error, result) => {
-      if (!error) {
-        console.log("RIUM_Buy: ", result);
-      }
       setRium("");
     });
   };
@@ -29,9 +26,6 @@ function Swap(props) {
       .send({ from: account });
 
     await Rium.once("Transfer", (error, result) => {
-      if (!error) {
-        console.log("RIUM_Sell: ", result);
-      }
       setRium("");
     });
   };
