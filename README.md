@@ -27,16 +27,16 @@ https://trufflesuite.com/ganache/
 ### Create Ethereum Workspace in Ganache
 
 1. Open Ganache and click `New Workspace`.
-2. In workspace tab, click `Add Project` button and select the `bitirium/truffle-config.js` file.
+2. In workspace tab, click `Add Project` button and select the `truffle-config.js` file.
 3. Go to server tab and select the hostname as your local IP address (selection three) and set the network ID as `1337`.
 4. Click on the `Save Workspace` button to get the workspace running.
-5. Set the `host` as your local IP address in `truffle-config.js`
+5. Set the host as your local IP address in `truffle-config.js`
 
 ```js
 // truffle-config.js
 ...
 development: {
-      host: "192.168.0.0",
+      host: "192.168.0.0", // Your local IP address.
       port: 7545,
       network_id: "*",
     },
@@ -46,6 +46,16 @@ development: {
 ### Compile and Deploy Contracts
 
 > For using an address as admin on the app, paste the address to the admin variable on 36th line in `Bitirium.sol`.
+>
+> ```js
+> //Bitirium.sol
+> ...
+> constructor() {
+>        address admin = 0x40EC82dfd76f17Ca42c8744AB9aA70787fA97234; // Your address.
+>        users[admin].isAdmin = users[admin].isUser = true;
+>    }
+> ...
+> ```
 
 1. First deploy the Bitirium.sol by running
 
@@ -53,15 +63,15 @@ development: {
 truffle migrate --f 1 --to 1
 ```
 
-2. Copy the contract address and paste it in `bitirium/src/Credentials.js`, and paste as first parameter of approve function on 56th line of `bitirium/contracts/RIUM.sol`
+2. Copy the contract address and paste it in `src/Credentials.js`, and paste as first parameter of approve function on 56th line of `contracts/RIUM.sol`
 3. Then deploy the RIUM.sol by running
 
 ```bash
 truffle migrate --f 2 --to 2
 ```
 
-4. Copy the contract address and paste it in `bitirium/src/Credentials.js`
-5. Set localhost variable in `bitirium/src/Credentials.js` to your local IP address.
+4. Copy the contract address and paste it in `src/Credentials.js`
+5. Set localhost variable in `src/Credentials.js` to your local IP address.
 
 ### Connect MetaMask to Local Blockchain
 
@@ -69,10 +79,14 @@ truffle migrate --f 2 --to 2
 2. Go to Settings > Networks > Add Network.
 3. Enter:
    > Network Name: Ganache  
-   > New RPC URL: http://192.168.0.0:7545  
+   > New RPC URL: http://192.168.0.0:7545 // your local IP address  
    > Chain ID: 1337  
    > Currency Symbol: ETH
 4. Click `Save`.
+
+   | <img src="./public/network.png" alt="drawing" width="600" /> |
+   | :----------------------------------------------------------: |
+   |       _RPC URL and Chain ID must be same as Ganache._        |
 
 ### Import Ganache Accounts to MetaMask
 
@@ -101,26 +115,26 @@ npm start
 ```
 
 MetaMask will ask you to connect your account.  
-Select the account you want to use and click `Connect.`
+Select the account you want to use and click `Connect`.
 
 After that you can use the application in the way you like!
 
-You can deposit :
+| <img src="./public/gifs/Deposit.gif" alt="drawing" width="300" /> |
+| :---------------------------------------------------------------: |
+|              _You can deposit ETH in your account._               |
 
-<img src="./public/gifs/Deposit.gif" alt="drawing" width="300" />
+| <img src="./public/gifs/Withdraw.gif" alt="drawing" width="300" /> |
+| :----------------------------------------------------------------: |
+|           _You can withdraw your ETH's to your wallet._            |
 
-You can withdraw:
+| <img src="./public/gifs/Transfer.gif" alt="drawing" width="300" /> |
+| :----------------------------------------------------------------: |
+|               _You can send Ether to your friends._                |
 
-<img src="./public/gifs/Withdraw.gif" alt="drawing" width="300"/>
+| <img src="./public/gifs/Rium.gif" alt="drawing" width="300" /> |
+| :------------------------------------------------------------: |
+|                 _You can buy and sell $RIUM._                  |
 
-You can send ether:
-
-<img src="./public/gifs/Transfer.gif" alt="drawing" width="300"/>
-
-You can buy and sell $RIUM:
-
-<img src="./public/gifs/Rium.gif" alt="drawing" width="300"/>
-
-And if you are admin, you can even see the transactions happened on the app:
-
-<img src="./public/gifs/Admin.gif" alt="drawing" width="300"/>
+| <img src="./public/gifs/Admin.gif" alt="drawing" width="300" /> |
+| :-------------------------------------------------------------: |
+|              _If you are admin, you can do more!_               |
