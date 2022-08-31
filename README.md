@@ -85,7 +85,7 @@ truffle migrate --f 2 --to 2
 4. Click `Save`.
 
    | <img src="./public/network.png" alt="drawing" width="600" /> |
-   | :----------------------------------------------------------: |
+   |:------------------------------------------------------------:|
    |       _RPC URL and Chain ID must be same as Ganache._        |
 
 ### Import Ganache Accounts to MetaMask
@@ -120,21 +120,35 @@ Select the account you want to use and click `Connect`.
 After that you can use the application in the way you like!
 
 | <img src="./public/gifs/Deposit.gif" alt="drawing" width="300" /> |
-| :---------------------------------------------------------------: |
+|:-----------------------------------------------------------------:|
 |              _You can deposit ETH in your account._               |
 
 | <img src="./public/gifs/Withdraw.gif" alt="drawing" width="300" /> |
-| :----------------------------------------------------------------: |
+|:------------------------------------------------------------------:|
 |               _You can withdraw ETH to your wallet._               |
 
 | <img src="./public/gifs/Transfer.gif" alt="drawing" width="300" /> |
-| :----------------------------------------------------------------: |
+|:------------------------------------------------------------------:|
 |               _You can send Ether to your friends._                |
 
 | <img src="./public/gifs/Rium.gif" alt="drawing" width="300" /> |
-| :------------------------------------------------------------: |
+|:--------------------------------------------------------------:|
 |                 _You can buy and sell $RIUM._                  |
 
 | <img src="./public/gifs/Admin.gif" alt="drawing" width="300" /> |
-| :-------------------------------------------------------------: |
+|:---------------------------------------------------------------:|
 |             _If you are an admin, you can do more!_             |
+
+> **Warning**\
+> For testing the contracts, checkout to test branch with
+> ```bash
+> git checkout test
+> ```
+> then run
+> ```bash
+> npx hardhat test
+> ```
+>
+> | <img src="./public/test_result.png" alt="drawing" width="600" /> |
+> |:----------------------------------------------------------------:|
+> |                          _Test result._                          |
