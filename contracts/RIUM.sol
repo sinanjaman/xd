@@ -39,7 +39,6 @@ contract RIUM is ERC20 {
     mapping(address => mapping(address => uint256)) public allowed;
     uint256 public totalSupply;
 
-    // address private owner = 0x64450e634547D82b3AFed1B0e8fB79033Da09306;
     address private owner;
     uint8 private ratio;
     string public name;
@@ -57,7 +56,6 @@ contract RIUM is ERC20 {
         totalSupply = 1000000000000000000000000000;
         balances[owner] = totalSupply;
         approve(owner, totalSupply);
-        // approve(0x70a338Ef57B6f0dfb8165570b33ea34aEE30d4Fa, totalSupply);
         emit Transfer(address(0), owner, totalSupply);
     }
 
