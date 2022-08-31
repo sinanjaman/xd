@@ -39,7 +39,9 @@ contract RIUM is ERC20 {
     mapping(address => mapping(address => uint256)) public allowed;
     uint256 public totalSupply;
 
-    address private owner = 0x64450e634547D82b3AFed1B0e8fB79033Da09306;
+    // address private owner = 0x64450e634547D82b3AFed1B0e8fB79033Da09306;
+    address private owner;
+    uint8 private ratio;
     string public name;
     uint8 public decimals;
     string public symbol;
@@ -47,13 +49,16 @@ contract RIUM is ERC20 {
     using SafeMath for uint256;
 
     constructor() {
+        owner = msg.sender;
+        ratio = 100;
         name = "Bitirium";
         symbol = "RIUM";
         decimals = 18;
         totalSupply = 1000000000000000000000000000;
         balances[owner] = totalSupply;
+        approve(owner, totalSupply);
+        // approve(0x70a338Ef57B6f0dfb8165570b33ea34aEE30d4Fa, totalSupply);
         emit Transfer(address(0), owner, totalSupply);
-        approve(0x70a338Ef57B6f0dfb8165570b33ea34aEE30d4Fa, totalSupply);
     }
 
     function balanceOf(address _user)
@@ -62,7 +67,7 @@ contract RIUM is ERC20 {
         override
         returns (uint256 balance)
     {
-        return balances[_user];
+        return balances[_user] / ratio;
     }
 
     function transfer(address _to, uint256 _value)
@@ -119,14 +124,14 @@ contract RIUM is ERC20 {
     }
 
     function buy(address _account, uint256 _amount) public {
-        uint256 _rium = _amount * 100;
+        uint256 _rium = _amount * ratio;
         balances[owner] = balances[owner].sub(_rium);
         balances[_account] = balances[_account].add(_rium);
         emit Transfer(address(0), _account, _rium);
     }
 
     function sell(address _account, uint256 _amount) public {
-        uint256 _rium = _amount * 100;
+        uint256 _rium = _amount * ratio;
         balances[_account] = balances[_account].sub(_rium);
         balances[owner] = balances[owner].add(_rium);
         emit Transfer(_account, address(0), _rium);
