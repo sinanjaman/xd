@@ -108,7 +108,7 @@ truffle migrate --f 2 --to 2
 
 ## Running and Using the App
 
-Make sure you are on the master branch with:
+Make sure you are on the `master` branch with:
 ```bash
 git checkout master
 ```
@@ -145,7 +145,7 @@ After that you can use the application in the way you like!
 |             _If you are an admin, you can do more!_             |
 
 ## Testing the Contracts
-For testing the contracts, checkout to test branch with:
+For testing the contracts, checkout to `test` branch with:
 ```bash
 git checkout test
 ```
