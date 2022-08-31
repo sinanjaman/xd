@@ -33,8 +33,7 @@ contract Bitirium {
     using SafeMath for uint256;
 
     constructor() {
-        address admin = 0x40EC82dfd76f17Ca42c8744AB9aA70787fA97234;
-        users[admin].isAdmin = users[admin].isUser = true;
+        users[msg.sender].isAdmin = users[msg.sender].isUser = true;
     }
 
     modifier onlyAdmin() {
@@ -102,20 +101,22 @@ contract Bitirium {
         emit Withdraw(msg.sender, _balance);
     }
 
-    function transferEthereum(address _to, uint256 _amount) public onlyUser {
+    function transferEth(address _to, uint256 _amount) public onlyUser {
         require(users[msg.sender].balance >= _amount, "Not enough ETH.");
         users[msg.sender].balance = users[msg.sender].balance.sub(_amount);
         users[_to].balance = users[_to].balance.add(_amount);
         emit Transfer(msg.sender, _to, _amount);
     }
 
-    function buyRium(RIUM _rium, uint256 _amount) public onlyUser {
+    function buyRiumForExactEth(RIUM _rium, uint256 _amount) public onlyUser {
+        require(users[msg.sender].balance >= _amount, "Not enough ETH.");
         users[msg.sender].balance = users[msg.sender].balance.sub(_amount);
         _rium.buy(msg.sender, _amount);
         emit Transfer(msg.sender, address(0), _amount);
     }
 
-    function sellRium(RIUM _rium, uint256 _amount) public onlyUser {
+    function sellRiumForExactEth(RIUM _rium, uint256 _amount) public onlyUser {
+        require(_rium.balanceOf(msg.sender) >= _amount, "Not enough RIUM.");
         _rium.sell(msg.sender, _amount);
         users[msg.sender].balance = users[msg.sender].balance.add(_amount);
         emit Transfer(address(0), msg.sender, _amount);

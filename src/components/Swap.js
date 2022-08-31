@@ -12,7 +12,7 @@ function Swap(props) {
 
   const handleBuy = async () => {
     Bitirium.methods
-      .buyRium(RiumAddress, web3.utils.toWei((rium / 100).toString(), "ether"))
+      .buyRiumForExactEth(RiumAddress, web3.utils.toWei((rium / 100).toString(), "ether"))
       .send({ from: account });
 
     await Rium.once("Transfer", (error, result) => {
@@ -22,7 +22,7 @@ function Swap(props) {
 
   const handleSell = async () => {
     Bitirium.methods
-      .sellRium(RiumAddress, web3.utils.toWei((rium / 100).toString(), "ether"))
+      .sellRiumForExactEth(RiumAddress, web3.utils.toWei((rium / 100).toString(), "ether"))
       .send({ from: account });
 
     await Rium.once("Transfer", (error, result) => {
