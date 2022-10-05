@@ -1,11 +1,19 @@
-import { useState } from "react";
+import React, { ChangeEvent, useState } from "react";
+import Web3 from "web3";
+import { Contract } from "web3-eth-contract";
 
-function Transfer(props) {
+type TransferProps = {
+  web3: Web3;
+  Bitirium: Contract;
+  from?: string;
+};
+
+function Transfer(props: TransferProps) {
   const { web3, Bitirium, from } = props;
   const [amount, setAmount] = useState("");
   const [to, setTo] = useState("");
 
-  const emptyCheck = (input) => {
+  const emptyCheck = (input: string) => {
     if (input === "" || input === "0") return false;
     return true;
   };
@@ -18,11 +26,11 @@ function Transfer(props) {
     setTo("");
   };
 
-  const handleTransferInput = (event) => {
+  const handleTransferInput = (event: ChangeEvent<HTMLInputElement>) => {
     setAmount(event.target.value);
   };
 
-  const handleAddressInput = (event) => {
+  const handleAddressInput = (event: ChangeEvent<HTMLInputElement>) => {
     setTo(event.target.value);
   };
 

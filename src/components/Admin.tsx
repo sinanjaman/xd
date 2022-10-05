@@ -1,27 +1,29 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, ChangeEvent } from "react";
 import Table from "./Table";
+import { Contract, EventData } from "web3-eth-contract";
 
-function Admin(props) {
+type AdminProps = {
+  Bitirium: Contract;
+  account?: string;
+};
+
+function Admin(props: AdminProps) {
   const { Bitirium, account } = props;
   const [address, setAddress] = useState("");
-  const [events, setEvents] = useState([]);
+  const [events, setEvents] = useState<Array<EventData>>([]);
 
-  const emptyCheck = (input) => {
+  const emptyCheck = (input: string) => {
     if (input === "" || input === "0") return false;
     return true;
   };
 
   const getEvents = () => {
-    Bitirium.getPastEvents(
-      "allEvents",
-      { fromBlock: "earliest", toBlock: "latest" },
-      (error, result) => {
-        if (!error) {
-          let tempResults = result;
-          setEvents(tempResults.reverse());
-        }
-      }
-    );
+    Bitirium.getPastEvents("allEvents", {
+      fromBlock: "earliest",
+      toBlock: "latest",
+    }).then((events: Array<EventData>) => {
+      setEvents(events.reverse());
+    });
   };
 
   Bitirium.events.allEvents({ fromBlock: "earliest" }, () => {
@@ -43,7 +45,7 @@ function Admin(props) {
     setAddress("");
   };
 
-  const handleAddressInput = (text) => {
+  const handleAddressInput = (text: ChangeEvent<HTMLInputElement>) => {
     setAddress(text.target.value);
   };
 

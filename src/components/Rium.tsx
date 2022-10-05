@@ -1,18 +1,30 @@
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
+import Web3 from "web3";
+import { Contract } from "web3-eth-contract";
 import { RiumAddress } from "../Credentials";
 
-function Swap(props) {
-  const { web3, Bitirium, account, Rium } = props;
-  const [rium, setRium] = useState("");
+type RiumProps = {
+  web3: Web3;
+  Bitirium: Contract;
+  account?: string;
+  Rium: Contract;
+};
 
-  const emptyCheck = (input) => {
+function Rium(props: RiumProps) {
+  const { web3, Bitirium, account, Rium } = props;
+  const [rium, setRium] = useState<string>("");
+
+  const emptyCheck = (input: string) => {
     if (input === "" || input === "0") return false;
     return true;
   };
 
   const handleBuy = async () => {
     Bitirium.methods
-      .buyRium(RiumAddress, web3.utils.toWei((rium / 100).toString(), "ether"))
+      .buyRium(
+        RiumAddress,
+        web3.utils.toWei((rium && parseFloat(rium) / 100).toString(), "ether")
+      )
       .send({ from: account });
 
     await Rium.once("Transfer", (error, result) => {
@@ -22,7 +34,10 @@ function Swap(props) {
 
   const handleSell = async () => {
     Bitirium.methods
-      .sellRium(RiumAddress, web3.utils.toWei((rium / 100).toString(), "ether"))
+      .sellRium(
+        RiumAddress,
+        web3.utils.toWei((rium && parseFloat(rium) / 100).toString(), "ether")
+      )
       .send({ from: account });
 
     await Rium.once("Transfer", (error, result) => {
@@ -30,8 +45,8 @@ function Swap(props) {
     });
   };
 
-  const handleRIUMInput = (text) => {
-    setRium(text.target.value);
+  const handleRIUMInput = (event: ChangeEvent<HTMLInputElement>) => {
+    setRium(event.target.value);
   };
 
   return (
@@ -48,16 +63,21 @@ function Swap(props) {
             value={rium}
           />
           <div className="text-center self-center text-secondary">
-            {rium / 100} ETH
+            {parseFloat(rium) / 100} ETH
           </div>
         </div>
         <div className="grid grid-cols-2 gap-4">
-          <button className="" onClick={() => emptyCheck(rium) && handleBuy()}>
+          <button
+            className=""
+            onClick={() => emptyCheck(rium) && handleBuy()}
+            disabled={parseFloat(rium) / 100 == NaN}
+          >
             Buy RIUM
           </button>
           <button
             className=" bg-secondary border-secondary"
             onClick={() => emptyCheck(rium) && handleSell()}
+            disabled={parseFloat(rium) / 100 == NaN}
           >
             Sell RIUM
           </button>
@@ -67,4 +87,4 @@ function Swap(props) {
   );
 }
 
-export default Swap;
+export default Rium;

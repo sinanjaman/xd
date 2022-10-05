@@ -1,13 +1,23 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, ChangeEvent } from "react";
+import Web3 from "web3";
+import { Contract, EventData } from "web3-eth-contract";
 
-function Profile(props) {
+type ProfileProps = {
+  web3: Web3;
+  Bitirium: Contract;
+  account?: string;
+  balance: string;
+  setBalance: Function;
+};
+
+function Profile(props: ProfileProps) {
   const { web3, Bitirium, account, balance, setBalance } = props;
   const [deposit, setDeposit] = useState("");
   const [withdraw, setWithdraw] = useState("");
 
   Bitirium.events.Transfer(
     { filter: account, fromBlock: "latest" },
-    (error, result) => {
+    (error: Error, result: EventData) => {
       if (!error) {
         if (
           result.returnValues[0] === account ||
@@ -20,7 +30,7 @@ function Profile(props) {
     }
   );
 
-  const emptyCheck = (input) => {
+  const emptyCheck = (input: string) => {
     if (input === "" || input === "0") return false;
     return true;
   };
@@ -66,17 +76,17 @@ function Profile(props) {
     Bitirium.methods
       .getBalance(account)
       .call()
-      .then((balance) => {
+      .then((balance: string) => {
         const balanceEth = web3.utils.fromWei(balance, "ether");
         setBalance(balanceEth);
       });
   };
 
-  const handleDepositInput = (text) => {
+  const handleDepositInput = (text: ChangeEvent<HTMLInputElement>) => {
     setDeposit(text.target.value);
   };
 
-  const handleWithdrawInput = (text) => {
+  const handleWithdrawInput = (text: ChangeEvent<HTMLInputElement>) => {
     setWithdraw(text.target.value);
   };
 

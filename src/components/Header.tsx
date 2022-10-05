@@ -1,13 +1,24 @@
 import { useEffect } from "react";
+import Web3 from "web3";
+import { Contract } from "web3-eth-contract";
 
-function Header(props) {
+type HeaderProps = {
+  web3: Web3;
+  account?: string;
+  setAccount: Function;
+  admin: boolean;
+  setAdmin: Function;
+  Bitirium: Contract;
+};
+
+function Header(props: HeaderProps) {
   const { web3, account, setAccount, admin, setAdmin, Bitirium } = props;
 
   useEffect(() => {
     const { web3, setAccount } = props;
 
     const getAccount = async () =>
-      await web3.eth.getAccounts((e, accounts) => {
+      await web3.eth.getAccounts((error: Error, accounts: Array<string>) => {
         setAccount(accounts[0]);
         accounts[0] && checkUser(accounts[0]);
         accounts[0] && checkAdmin(accounts[0]);
@@ -17,23 +28,23 @@ function Header(props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  window.ethereum.on("accountsChanged", function (accounts) {
+  (window as any).ethereum.on("accountsChanged", function () {
     window.location.reload();
   });
 
   const handleConnect = async () => {
-    await web3.eth.requestAccounts().then((accounts) => {
+    await web3.eth.requestAccounts().then((accounts: Array<string>) => {
       setAccount(accounts[0]);
       checkUser(accounts[0]);
       checkAdmin(accounts[0]);
     });
   };
 
-  const checkUser = (account) => {
+  const checkUser = (account: string) => {
     Bitirium.methods
       .isUser(account)
       .call()
-      .then(async (user) => {
+      .then(async (user: boolean) => {
         !user &&
           (await Bitirium.methods.createUser().send({
             from: account,
@@ -42,20 +53,23 @@ function Header(props) {
       });
   };
 
-  const checkAdmin = (account) => {
+  const checkAdmin = (account: string) => {
     Bitirium.methods
       .isAdmin(account)
       .call()
-      .then((admin) => {
+      .then((admin: boolean) => {
         setAdmin(admin);
       });
   };
 
   const printAccount = () => {
-    const accountPrint = account
-      .slice(0, 6)
-      .concat("...")
-      .concat(account.slice(-4, 42));
+    let accountPrint = "";
+    if (account) {
+      accountPrint = account
+        .slice(0, 6)
+        .concat("...")
+        .concat(account.slice(-4, 42));
+    }
 
     return <div>{accountPrint}</div>;
   };

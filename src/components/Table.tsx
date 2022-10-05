@@ -1,13 +1,18 @@
 import Web3 from "web3";
+import { EventData } from "web3-eth-contract";
 import useWindowDimensions from "../hooks/windowHook";
 
 const zeroAddress = "0x0000000000000000000000000000000000000000";
 
-function Table(props) {
+type TableProps = {
+  events: Array<EventData>;
+};
+
+function Table(props: TableProps) {
   const { events } = props;
   const { width } = useWindowDimensions();
 
-  const printAddress = (address, digits = 4) => {
+  const printAddress = (address: string, digits: number = 4) => {
     const addressToPrint = address
       .slice(0, digits + 2)
       .concat("...")
@@ -21,7 +26,7 @@ function Table(props) {
       return (
         <div
           className="bg-gray-100 rounded-lg my-1 p-2 shadow-sm"
-          key={event.id}
+          key={event.logIndex}
         >
           <div className="grid grid-cols-10">
             <div className="font-bold col-span-2 md:col-span-1">
@@ -43,7 +48,7 @@ function Table(props) {
         return (
           <div
             className="bg-gray-100 rounded-lg my-1 p-2 shadow-sm"
-            key={event.id}
+            key={event.logIndex}
           >
             <div className="grid grid-cols-10">
               <div className="font-bold col-span-2 md:col-span-1">Buy</div>
@@ -62,7 +67,7 @@ function Table(props) {
         return (
           <div
             className="bg-gray-100 rounded-lg my-1 p-2 shadow-sm"
-            key={event.id}
+            key={event.logIndex}
           >
             <div className="grid grid-cols-10">
               <div className="font-bold col-span-2 md:col-span-1">Sell</div>
@@ -81,7 +86,7 @@ function Table(props) {
         return (
           <div
             className="bg-gray-100 rounded-lg my-1 p-2 shadow-sm"
-            key={event.id}
+            key={event.logIndex}
           >
             <div className="grid grid-cols-10">
               <div className="font-bold col-span-2 md:col-span-1">
