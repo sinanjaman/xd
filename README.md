@@ -27,13 +27,13 @@ https://trufflesuite.com/ganache/
 ### Create Ethereum Workspace in Ganache
 
 1. Open Ganache and click `New Workspace`.
-2. In workspace tab, click `Add Project` button and select the `truffle-config.js` file.
+2. In workspace tab, click `Add Project` button and select the `truffle-config.ts` file.
 3. Go to server tab and select the hostname as your local IP address (selection three) and set the network ID as 1337.
 4. Click on the `Save Workspace` button to get the workspace running.
-5. Set the host as your local IP address in `truffle-config.js`
+5. Set the host as your local IP address in `truffle-config.ts`
 
-```js
-// truffle-config.js
+```ts
+// truffle-config.ts
 ...
 development: {
       host: "192.168.0.0", // Your local IP address.
@@ -47,7 +47,7 @@ development: {
 
 > For using an address as admin on the app, paste the address to the admin variable on 36th line in `Bitirium.sol`.
 >
-> ```js
+> ```ts
 > //Bitirium.sol
 > ...
 > constructor() {
@@ -63,15 +63,15 @@ development: {
 truffle migrate --f 1 --to 1
 ```
 
-2. Copy the contract address and paste it in `src/Credentials.js`, and paste as first parameter of approve function on 56th line of `contracts/RIUM.sol`
+2. Copy the contract address and paste it in `src/Credentials.ts`, and paste as first parameter of approve function on 56th line of `contracts/RIUM.sol`
 3. Then deploy the RIUM.sol by running
 
 ```bash
 truffle migrate --f 2 --to 2
 ```
 
-4. Copy the contract address and paste it in `src/Credentials.js`
-5. Set localhost variable in `src/Credentials.js` to your local IP address.
+4. Copy the contract address and paste it in `src/Credentials.ts`
+5. Set localhost variable in `src/Credentials.ts` to your local IP address.
 
 ### Connect MetaMask to Local Blockchain
 
