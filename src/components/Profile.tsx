@@ -2,15 +2,15 @@ import { useState, useEffect, ChangeEvent } from "react";
 import Web3 from "web3";
 import { Contract, EventData } from "web3-eth-contract";
 
-type ProfileProps = {
+interface ProfileProps {
   web3: Web3;
   Bitirium: Contract;
   account?: string;
   balance: string;
-  setBalance: Function;
-};
+  setBalance: (balanceAsBigNumber: string) => void;
+}
 
-function Profile(props: ProfileProps) {
+const Profile: React.FC<ProfileProps> = (props) => {
   const { web3, Bitirium, account, balance, setBalance } = props;
   const [deposit, setDeposit] = useState("");
   const [withdraw, setWithdraw] = useState("");
@@ -149,6 +149,6 @@ function Profile(props: ProfileProps) {
       </div>
     </div>
   );
-}
+};
 
 export default Profile;

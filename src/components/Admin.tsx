@@ -2,15 +2,15 @@ import { useState, useEffect, ChangeEvent } from "react";
 import Table from "./Table";
 import { Contract, EventData } from "web3-eth-contract";
 
-type AdminProps = {
+interface AdminProps {
   Bitirium: Contract;
   account?: string;
-};
+}
 
-function Admin(props: AdminProps) {
+const Admin: React.FC<AdminProps> = (props) => {
   const { Bitirium, account } = props;
   const [address, setAddress] = useState("");
-  const [events, setEvents] = useState<Array<EventData>>([]);
+  const [events, setEvents] = useState<EventData[]>([]);
 
   const emptyCheck = (input: string) => {
     if (input === "" || input === "0") return false;
@@ -21,7 +21,7 @@ function Admin(props: AdminProps) {
     Bitirium.getPastEvents("allEvents", {
       fromBlock: "earliest",
       toBlock: "latest",
-    }).then((events: Array<EventData>) => {
+    }).then((events: EventData[]) => {
       setEvents(events.reverse());
     });
   };
@@ -84,6 +84,6 @@ function Admin(props: AdminProps) {
       </div>
     </div>
   );
-}
+};
 
 export default Admin;

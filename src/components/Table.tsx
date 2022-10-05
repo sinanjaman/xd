@@ -4,11 +4,11 @@ import useWindowDimensions from "../hooks/windowHook";
 
 const zeroAddress = "0x0000000000000000000000000000000000000000";
 
-type TableProps = {
-  events: Array<EventData>;
-};
+interface TableProps {
+  events: EventData[];
+}
 
-function Table(props: TableProps) {
+const Table: React.FC<TableProps> = (props) => {
   const { events } = props;
   const { width } = useWindowDimensions();
 
@@ -128,6 +128,6 @@ function Table(props: TableProps) {
       </div>
     </div>
   );
-}
+};
 
 export default Table;

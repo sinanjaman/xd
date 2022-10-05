@@ -2,13 +2,13 @@ import React, { ChangeEvent, useState } from "react";
 import Web3 from "web3";
 import { Contract } from "web3-eth-contract";
 
-type TransferProps = {
+interface TransferProps {
   web3: Web3;
   Bitirium: Contract;
   from?: string;
-};
+}
 
-function Transfer(props: TransferProps) {
+const Transfer: React.FC<TransferProps> = (props) => {
   const { web3, Bitirium, from } = props;
   const [amount, setAmount] = useState("");
   const [to, setTo] = useState("");
@@ -77,6 +77,6 @@ function Transfer(props: TransferProps) {
       </div>
     </div>
   );
-}
+};
 
 export default Transfer;

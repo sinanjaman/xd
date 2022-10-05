@@ -3,14 +3,14 @@ import Web3 from "web3";
 import { Contract } from "web3-eth-contract";
 import { RiumAddress } from "../Credentials";
 
-type RiumProps = {
+interface RiumProps {
   web3: Web3;
   Bitirium: Contract;
   account?: string;
   Rium: Contract;
-};
+}
 
-function Rium(props: RiumProps) {
+const Rium: React.FC<RiumProps> = (props) => {
   const { web3, Bitirium, account, Rium } = props;
   const [rium, setRium] = useState<string>("");
 
@@ -85,6 +85,6 @@ function Rium(props: RiumProps) {
       </div>
     </div>
   );
-}
+};
 
 export default Rium;

@@ -2,23 +2,23 @@ import { useEffect } from "react";
 import Web3 from "web3";
 import { Contract } from "web3-eth-contract";
 
-type HeaderProps = {
+interface HeaderProps {
   web3: Web3;
   account?: string;
-  setAccount: Function;
+  setAccount: (account: string) => void;
   admin: boolean;
-  setAdmin: Function;
+  setAdmin: (isAdmin: boolean) => void;
   Bitirium: Contract;
-};
+}
 
-function Header(props: HeaderProps) {
+const Header: React.FC<HeaderProps> = (props) => {
   const { web3, account, setAccount, admin, setAdmin, Bitirium } = props;
 
   useEffect(() => {
     const { web3, setAccount } = props;
 
     const getAccount = async () =>
-      await web3.eth.getAccounts((error: Error, accounts: Array<string>) => {
+      await web3.eth.getAccounts((error: Error, accounts: string[]) => {
         setAccount(accounts[0]);
         accounts[0] && checkUser(accounts[0]);
         accounts[0] && checkAdmin(accounts[0]);
@@ -33,7 +33,7 @@ function Header(props: HeaderProps) {
   });
 
   const handleConnect = async () => {
-    await web3.eth.requestAccounts().then((accounts: Array<string>) => {
+    await web3.eth.requestAccounts().then((accounts: string[]) => {
       setAccount(accounts[0]);
       checkUser(accounts[0]);
       checkAdmin(accounts[0]);
@@ -107,6 +107,6 @@ function Header(props: HeaderProps) {
       </div>
     </div>
   );
-}
+};
 
 export default Header;

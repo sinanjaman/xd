@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Web3 from "web3";
+import { Contract } from "web3-eth-contract";
 import { AbiItem } from "web3-utils";
 import { BitiriumAddress, RiumAddress, localhost } from "./Credentials";
 // import BitiriumJSON from "../build/contracts/Bitirium.json";
@@ -12,13 +13,19 @@ import Admin from "./components/Admin";
 const BitiriumJSON = require("../build/contracts/Bitirium.json");
 const RiumJSON = require("../build/contracts/RIUM.json");
 
-function App() {
-  const web3 = new Web3(Web3.givenProvider || `http://${localhost}:7545`);
+const App: React.FC = () => {
+  const web3: Web3 = new Web3(Web3.givenProvider || `http://${localhost}:7545`);
   const [account, setAccount] = useState<string | undefined>(undefined);
   const [balance, setBalance] = useState<string>("");
   const [admin, setAdmin] = useState<boolean>(false);
-  const Bitirium = new web3.eth.Contract(BitiriumJSON.abi as AbiItem, BitiriumAddress);
-  const Rium = new web3.eth.Contract(RiumJSON.abi as AbiItem, RiumAddress);
+  const Bitirium: Contract = new web3.eth.Contract(
+    BitiriumJSON.abi as AbiItem,
+    BitiriumAddress
+  );
+  const Rium: Contract = new web3.eth.Contract(
+    RiumJSON.abi as AbiItem,
+    RiumAddress
+  );
 
   return (
     <div className="min-h-screen h-full bg-secondary">
@@ -46,6 +53,6 @@ function App() {
       </div>
     </div>
   );
-}
+};
 
 export default App;
